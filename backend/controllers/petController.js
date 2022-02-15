@@ -8,9 +8,15 @@ const registerPet = async (req, res) => {
     !req.body.type ||
     !req.body.weight ||
     !req.body.height ||
-    !req.body.age
+    !req.body.age ||
+    !req.body.petNumber
   )
     return res.status(400).send({ message: "Incomplete date" });
+
+  let verifyPetNumber = await pet.findOne({ petNumber: req.body.petNumber });
+
+  if (verifyPetNumber)
+    return res.status(400).send({ message: "pet number exists" });
 
   let schema = new pet({
     name: req.body.name,
@@ -20,15 +26,16 @@ const registerPet = async (req, res) => {
     weight: req.body.weight,
     height: req.body.height,
     age: req.body.age,
-    dbStatus: true
+    dbStatus: true,
+    petNumber: req.body.petNumber,
   });
 
   let result = await schema.save();
   if (!result)
-  return res.status(500).send({
-      message: "Failed to register pet"
-  });
-  res.status(200).send({result});
+    return res.status(500).send({
+      message: "Failed to register pet",
+    });
+  res.status(200).send({ result });
 };
 
 export default { registerPet };

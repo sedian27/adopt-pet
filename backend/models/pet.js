@@ -10,6 +10,7 @@ const petSchema = new mongoose.Schema({
   age: Number,
   registerDate: { type: Date, default: Date.now },
   dbStatus: Boolean,
+  petNumber: Number,
 });
 
 const pet = mongoose.model("pets", petSchema);

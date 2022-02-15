@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import userRoutes from "./routes/userRoutes.js";
 import petRoutes from "./routes/petRoutes.js";
 import roleRoutes from "./routes/roleRoutes.js";
+import adoptRecordRoutes from "./routes/adoptRecordRoutes.js";
 import db from "./db/db.js";
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/user", userRoutes);
 app.use("/api/pet", petRoutes);
 app.use("/api/role", roleRoutes);
+app.use("/api/adoptRecord", adoptRecordRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log("NODE SERVER RUNNING IN PORT: ", process.env.PORT);
